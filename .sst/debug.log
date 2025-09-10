@@ -84,3 +84,5 @@
 2025-09-10T09:40:50.605Z +14921ms [debug] Publishing event {"type":"file.changed","properties":{"file":"/home/raj/dev/sst-projects/my-sst-app/.gitignore","relative":".gitignore"},"sourceID":"d7ce751158517ba2a1a5ce36df749493"}
 2025-09-10T09:40:50.664Z    +59ms [debug] Publishing event {"type":"file.changed","properties":{"file":"/home/raj/dev/sst-projects/my-sst-app/.idea/workspace.xml","relative":".idea/workspace.xml"},"sourceID":"d7ce751158517ba2a1a5ce36df749493"}
 2025-09-10T09:43:31.117Z +160453ms [debug] Publishing event {"type":"file.changed","properties":{"file":"/home/raj/dev/sst-projects/my-sst-app/.gitignore","relative":".gitignore"},"sourceID":"d7ce751158517ba2a1a5ce36df749493"}
+2025-09-10T09:44:15.271Z +44154ms [debug] Publishing event {"type":"file.changed","properties":{"file":"/home/raj/dev/sst-projects/my-sst-app/.gitignore","relative":".gitignore"},"sourceID":"d7ce751158517ba2a1a5ce36df749493"}
+2025-09-10T09:44:15.291Z    +19ms [debug] Publishing event {"type":"file.changed","properties":{"file":"/home/raj/dev/sst-projects/my-sst-app/.idea/workspace.xml","relative":".idea/workspace.xml"},"sourceID":"d7ce751158517ba2a1a5ce36df749493"}
