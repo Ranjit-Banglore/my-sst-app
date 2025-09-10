@@ -26,7 +26,5 @@ yarn-error.log*
 
 .sst
 
-packages/frontend/build
-packages/frontend/node_modules
 
 /.sst/*
