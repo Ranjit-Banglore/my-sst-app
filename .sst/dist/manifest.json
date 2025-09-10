@@ -1,0 +1,259 @@
+{
+  "version": "44.0.0",
+  "artifacts": {
+    "raj-my-sst-app-API.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "raj-my-sst-app-API.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "raj-my-sst-app-API": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://110880666244/us-east-1",
+      "properties": {
+        "templateFile": "raj-my-sst-app-API.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "sst:app": "my-sst-app",
+          "sst:stage": "raj"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::110880666244:role/cdk-hnb659fds-deploy-role-110880666244-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::110880666244:role/cdk-hnb659fds-cfn-exec-role-110880666244-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-110880666244-us-east-1/55359bfecb557a6f5bd8fac37a813ee9df609cee79d6d3d7b4f47d696b3a053f.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "raj-my-sst-app-API.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::110880666244:role/cdk-hnb659fds-lookup-role-110880666244-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "raj-my-sst-app-API.assets"
+      ],
+      "metadata": {
+        "/raj-my-sst-app-API": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "sst:app",
+                "Value": "my-sst-app"
+              },
+              {
+                "Key": "sst:stage",
+                "Value": "raj"
+              }
+            ]
+          }
+        ],
+        "/raj-my-sst-app-API/CustomResourceHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomResourceHandlerServiceRole41AEC181"
+          }
+        ],
+        "/raj-my-sst-app-API/CustomResourceHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomResourceHandlerE8FB56BA"
+          }
+        ],
+        "/raj-my-sst-app-API/Api/Api/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiCD79AAA0"
+          }
+        ],
+        "/raj-my-sst-app-API/Api/Api/DefaultStage/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiDefaultStage1AAE989B"
+          }
+        ],
+        "/raj-my-sst-app-API/Api/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLogGroup1717FE17"
+          }
+        ],
+        "/raj-my-sst-app-API/Api/Lambda_GET_--hello/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLambdaGEThelloServiceRoleC722C16E"
+          }
+        ],
+        "/raj-my-sst-app-API/Api/Lambda_GET_--hello/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLambdaGEThelloServiceRoleDefaultPolicy50273135"
+          }
+        ],
+        "/raj-my-sst-app-API/Api/Lambda_GET_--hello/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLambdaGEThello5A9ACCC3"
+          }
+        ],
+        "/raj-my-sst-app-API/Api/Lambda_GET_--hello/EventInvokeConfig/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLambdaGEThelloEventInvokeConfig3F551A5A"
+          }
+        ],
+        "/raj-my-sst-app-API/Api/Route_GET_--hello/Integration_GET_--hello/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiRouteGEThelloIntegrationGEThello61C31175"
+          }
+        ],
+        "/raj-my-sst-app-API/Api/Route_GET_--hello/Integration_GET_--hello-Permission": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiRouteGEThelloIntegrationGEThelloPermission41A90AD5"
+          }
+        ],
+        "/raj-my-sst-app-API/Api/Route_GET_--hello/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiRouteGEThello7575D965"
+          }
+        ],
+        "/raj-my-sst-app-API/Api/Parameter_url/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiParameterurl09B86AB9"
+          }
+        ],
+        "/raj-my-sst-app-API/ReactSite/S3Bucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ReactSiteS3BucketB9BB7C04"
+          }
+        ],
+        "/raj-my-sst-app-API/ReactSite/S3Bucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ReactSiteS3BucketPolicyD88B458D"
+          }
+        ],
+        "/raj-my-sst-app-API/ReactSite/S3Bucket/AutoDeleteObjectsCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ReactSiteS3BucketAutoDeleteObjectsCustomResource20A5650F"
+          }
+        ],
+        "/raj-my-sst-app-API/ReactSite/CloudFrontFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ReactSiteCloudFrontFunction7BB49AAD"
+          }
+        ],
+        "/raj-my-sst-app-API/ReactSite/Distribution/Origin1/S3Origin/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ReactSiteDistributionOrigin1S3OriginE341B3F7"
+          }
+        ],
+        "/raj-my-sst-app-API/ReactSite/Distribution/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ReactSiteDistributionFFB1766B"
+          }
+        ],
+        "/raj-my-sst-app-API/ReactSite/S3UploaderPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ReactSiteS3UploaderPolicy1878ED27"
+          }
+        ],
+        "/raj-my-sst-app-API/ReactSite/S3Uploader/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ReactSiteS3UploaderC091D9A3"
+          }
+        ],
+        "/raj-my-sst-app-API/ReactSite/CloudFrontInvalidatorPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ReactSiteCloudFrontInvalidatorPolicy9A2C567A"
+          }
+        ],
+        "/raj-my-sst-app-API/ReactSite/CloudFrontInvalidator/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ReactSiteCloudFrontInvalidatorBA77902C"
+          }
+        ],
+        "/raj-my-sst-app-API/ReactSite/Parameter_url/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ReactSiteParameterurl8CDE53DD"
+          }
+        ],
+        "/raj-my-sst-app-API/Custom::S3AutoDeleteObjectsCustomResourceProvider": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+            "data": true
+          }
+        ],
+        "/raj-my-sst-app-API/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+          }
+        ],
+        "/raj-my-sst-app-API/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
+          }
+        ],
+        "/raj-my-sst-app-API/SSTStackOutputApiEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiEndpoint"
+          }
+        ],
+        "/raj-my-sst-app-API/SSTStackOutputSiteUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteUrl"
+          }
+        ],
+        "/raj-my-sst-app-API/SSTStackOutputSSTMetadata": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SSTMetadata"
+          }
+        ],
+        "/raj-my-sst-app-API/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/raj-my-sst-app-API/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "raj-my-sst-app-API"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  },
+  "minimumCliVersion": "2.1018.1"
+}
