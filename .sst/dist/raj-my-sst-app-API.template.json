@@ -1,0 +1,1001 @@
+{
+ "Resources": {
+  "CustomResourceHandlerServiceRole41AEC181": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "sst:app",
+      "Value": "my-sst-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "raj"
+     }
+    ]
+   }
+  },
+  "CustomResourceHandlerE8FB56BA": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-110880666244-us-east-1",
+     "S3Key": "4b56370844550b52acd312a713f051ea91a5bcc84021d03bc28daf98e645e6cf.zip"
+    },
+    "Handler": "index.handler",
+    "MemorySize": 1024,
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomResourceHandlerServiceRole41AEC181",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Tags": [
+     {
+      "Key": "sst:app",
+      "Value": "my-sst-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "raj"
+     }
+    ],
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "CustomResourceHandlerServiceRole41AEC181"
+   ]
+  },
+  "ApiCD79AAA0": {
+   "Type": "AWS::ApiGatewayV2::Api",
+   "Properties": {
+    "CorsConfiguration": {
+     "AllowCredentials": false,
+     "AllowHeaders": [
+      "*"
+     ],
+     "AllowMethods": [
+      "*"
+     ],
+     "AllowOrigins": [
+      "*"
+     ]
+    },
+    "Name": "raj-my-sst-app-Api",
+    "ProtocolType": "HTTP",
+    "Tags": {
+     "sst:app": "my-sst-app",
+     "sst:stage": "raj"
+    }
+   }
+  },
+  "ApiDefaultStage1AAE989B": {
+   "Type": "AWS::ApiGatewayV2::Stage",
+   "Properties": {
+    "AccessLogSettings": {
+     "DestinationArn": {
+      "Fn::GetAtt": [
+       "ApiLogGroup1717FE17",
+       "Arn"
+      ]
+     },
+     "Format": "{\"requestTime\":\"$context.requestTime\",\"requestId\":\"$context.requestId\",\"httpMethod\":\"$context.httpMethod\",\"path\":\"$context.path\",\"routeKey\":\"$context.routeKey\",\"status\":$context.status,\"responseLatency\":$context.responseLatency,\"integrationRequestId\":\"$context.integration.requestId\",\"integrationStatus\":\"$context.integration.status\",\"integrationLatency\":\"$context.integration.latency\",\"integrationServiceStatus\":\"$context.integration.integrationStatus\",\"ip\":\"$context.identity.sourceIp\",\"userAgent\":\"$context.identity.userAgent\"}"
+    },
+    "ApiId": {
+     "Ref": "ApiCD79AAA0"
+    },
+    "AutoDeploy": true,
+    "StageName": "$default",
+    "Tags": {
+     "sst:app": "my-sst-app",
+     "sst:stage": "raj"
+    }
+   }
+  },
+  "ApiLogGroup1717FE17": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/vendedlogs/apis/raj-my-sst-app-Api-",
+       {
+        "Ref": "ApiCD79AAA0"
+       },
+       "/default"
+      ]
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "sst:app",
+      "Value": "my-sst-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "raj"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
+  },
+  "ApiLambdaGEThelloServiceRoleC722C16E": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "sst:app",
+      "Value": "my-sst-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "raj"
+     }
+    ]
+   }
+  },
+  "ApiLambdaGEThelloServiceRoleDefaultPolicy50273135": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "xray:PutTraceSegments",
+        "xray:PutTelemetryRecords"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "iot:*",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "s3:*",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::sstbootstrap-useast124d14e4b-osf66bytcphh"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::sstbootstrap-useast124d14e4b-osf66bytcphh/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ApiLambdaGEThelloServiceRoleDefaultPolicy50273135",
+    "Roles": [
+     {
+      "Ref": "ApiLambdaGEThelloServiceRoleC722C16E"
+     }
+    ]
+   }
+  },
+  "ApiLambdaGEThello5A9ACCC3": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "x86_64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-110880666244-us-east-1",
+     "S3Key": "377097d346716f940f579f012cf97dacd2edc6a0556e5d54c147761b63f97184.zip"
+    },
+    "Description": "live",
+    "Environment": {
+     "Variables": {
+      "SST_FUNCTION_ID": "c8633d8d1a548c599c4e8ca692e7990fd25d59299b",
+      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+      "SST_APP": "my-sst-app",
+      "SST_STAGE": "raj",
+      "SST_SSM_PREFIX": "/sst/my-sst-app/raj/",
+      "SST_DEBUG_IS_API_ROUTE": "1"
+     }
+    },
+    "EphemeralStorage": {
+     "Size": 512
+    },
+    "Handler": "live-lambda.handler",
+    "MemorySize": 1024,
+    "Role": {
+     "Fn::GetAtt": [
+      "ApiLambdaGEThelloServiceRoleC722C16E",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Tags": [
+     {
+      "Key": "sst:app",
+      "Value": "my-sst-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "raj"
+     }
+    ],
+    "Timeout": 10,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "ApiLambdaGEThelloServiceRoleDefaultPolicy50273135",
+    "ApiLambdaGEThelloServiceRoleC722C16E"
+   ]
+  },
+  "ApiLambdaGEThelloEventInvokeConfig3F551A5A": {
+   "Type": "AWS::Lambda::EventInvokeConfig",
+   "Properties": {
+    "FunctionName": {
+     "Ref": "ApiLambdaGEThello5A9ACCC3"
+    },
+    "MaximumRetryAttempts": 0,
+    "Qualifier": "$LATEST"
+   }
+  },
+  "ApiRouteGEThelloIntegrationGEThello61C31175": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ApiCD79AAA0"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "ApiLambdaGEThello5A9ACCC3",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   }
+  },
+  "ApiRouteGEThelloIntegrationGEThelloPermission41A90AD5": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ApiLambdaGEThello5A9ACCC3",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:110880666244:",
+       {
+        "Ref": "ApiCD79AAA0"
+       },
+       "/*/*/hello"
+      ]
+     ]
+    }
+   }
+  },
+  "ApiRouteGEThello7575D965": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ApiCD79AAA0"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "GET /hello",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiRouteGEThelloIntegrationGEThello61C31175"
+       }
+      ]
+     ]
+    }
+   }
+  },
+  "ApiParameterurl09B86AB9": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/sst/my-sst-app/raj/Api/Api/url",
+    "Tags": {
+     "sst:app": "my-sst-app",
+     "sst:stage": "raj"
+    },
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "ApiCD79AAA0",
+      "ApiEndpoint"
+     ]
+    }
+   }
+  },
+  "ReactSiteS3BucketB9BB7C04": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "Tags": [
+     {
+      "Key": "aws-cdk:auto-delete-objects",
+      "Value": "true"
+     },
+     {
+      "Key": "sst:app",
+      "Value": "my-sst-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "raj"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "ReactSiteS3BucketPolicyD88B458D": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "ReactSiteS3BucketB9BB7C04"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:PutBucketPolicy",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:DeleteObject*"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+          "Arn"
+         ]
+        }
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ReactSiteS3BucketB9BB7C04",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ReactSiteS3BucketB9BB7C04",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Principal": {
+        "CanonicalUser": {
+         "Fn::GetAtt": [
+          "ReactSiteDistributionOrigin1S3OriginE341B3F7",
+          "S3CanonicalUserId"
+         ]
+        }
+       },
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "ReactSiteS3BucketB9BB7C04",
+            "Arn"
+           ]
+          },
+          "/*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "ReactSiteS3BucketAutoDeleteObjectsCustomResource20A5650F": {
+   "Type": "Custom::S3AutoDeleteObjects",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+      "Arn"
+     ]
+    },
+    "BucketName": {
+     "Ref": "ReactSiteS3BucketB9BB7C04"
+    }
+   },
+   "DependsOn": [
+    "ReactSiteS3BucketPolicyD88B458D"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "ReactSiteCloudFrontFunction7BB49AAD": {
+   "Type": "AWS::CloudFront::Function",
+   "Properties": {
+    "AutoPublish": true,
+    "FunctionCode": "\nfunction handler(event) {\n  var request = event.request;\n  var uri = request.uri;\n  \n  if (uri.startsWith(\"/.well-known/\")) {\n    return request;\n  }\n\n  if (uri.endsWith(\"/\")) {\n    request.uri += \"index.html\";\n  } else if (!uri.split(\"/\").pop().includes(\".\")) {\n    request.uri += \".html\";\n  }\n\n  return request;\n}\n          ",
+    "FunctionConfig": {
+     "Comment": "us-east-1raj-my-sst-app-AoudFrontFunctionB7396728",
+     "Runtime": "cloudfront-js-1.0"
+    },
+    "Name": "us-east-1raj-my-sst-app-AoudFrontFunctionB7396728"
+   }
+  },
+  "ReactSiteDistributionOrigin1S3OriginE341B3F7": {
+   "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+   "Properties": {
+    "CloudFrontOriginAccessIdentityConfig": {
+     "Comment": "Identity for rajmysstappAPIReactSiteDistributionOrigin1BFA52E04"
+    }
+   }
+  },
+  "ReactSiteDistributionFFB1766B": {
+   "Type": "AWS::CloudFront::Distribution",
+   "Properties": {
+    "DistributionConfig": {
+     "Aliases": [],
+     "CustomErrorResponses": [
+      {
+       "ErrorCode": 403,
+       "ResponseCode": 200,
+       "ResponsePagePath": "/index.html"
+      },
+      {
+       "ErrorCode": 404,
+       "ResponseCode": 200,
+       "ResponsePagePath": "/index.html"
+      }
+     ],
+     "DefaultCacheBehavior": {
+      "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+      "Compress": true,
+      "FunctionAssociations": [
+       {
+        "EventType": "viewer-request",
+        "FunctionARN": {
+         "Fn::GetAtt": [
+          "ReactSiteCloudFrontFunction7BB49AAD",
+          "FunctionARN"
+         ]
+        }
+       }
+      ],
+      "TargetOriginId": "rajmysstappAPIReactSiteDistributionOrigin1BFA52E04",
+      "ViewerProtocolPolicy": "redirect-to-https"
+     },
+     "DefaultRootObject": "index.html",
+     "Enabled": true,
+     "HttpVersion": "http2",
+     "IPV6Enabled": true,
+     "Origins": [
+      {
+       "DomainName": {
+        "Fn::GetAtt": [
+         "ReactSiteS3BucketB9BB7C04",
+         "RegionalDomainName"
+        ]
+       },
+       "Id": "rajmysstappAPIReactSiteDistributionOrigin1BFA52E04",
+       "S3OriginConfig": {
+        "OriginAccessIdentity": {
+         "Fn::Join": [
+          "",
+          [
+           "origin-access-identity/cloudfront/",
+           {
+            "Ref": "ReactSiteDistributionOrigin1S3OriginE341B3F7"
+           }
+          ]
+         ]
+        }
+       }
+      }
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "sst:app",
+      "Value": "my-sst-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "raj"
+     }
+    ]
+   }
+  },
+  "ReactSiteS3UploaderPolicy1878ED27": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "CustomResourceHandlerE8FB56BA",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": [
+        "s3:ListBucket",
+        "s3:PutObject",
+        "s3:DeleteObject"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ReactSiteS3BucketB9BB7C04",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ReactSiteS3BucketB9BB7C04",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":s3:::cdk-hnb659fds-assets-110880666244-us-east-1/*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ReactSiteS3UploaderPolicy1878ED27",
+    "Roles": [
+     {
+      "Ref": "CustomResourceHandlerServiceRole41AEC181"
+     }
+    ]
+   }
+  },
+  "ReactSiteS3UploaderC091D9A3": {
+   "Type": "Custom::S3Uploader",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomResourceHandlerE8FB56BA",
+      "Arn"
+     ]
+    },
+    "sources": [
+     {
+      "bucketName": "cdk-hnb659fds-assets-110880666244-us-east-1",
+      "objectKey": "9a56cf3aaa9d8aa9564675cf82abb9139aadfbde8d90bd0d890ccfcbf763bcf8.zip"
+     }
+    ],
+    "destinationBucketName": {
+     "Ref": "ReactSiteS3BucketB9BB7C04"
+    },
+    "filenames": {
+     "bucketName": "cdk-hnb659fds-assets-110880666244-us-east-1",
+     "objectKey": "09675fe76a79b4a1daecf8ec44c41083d10ef05514e97de1c6ee710396d93054.09675fe76a79b4a1daecf8ec44c41083d10ef05514e97de1c6ee710396d93054"
+    },
+    "textEncoding": "utf-8",
+    "fileOptions": [
+     {
+      "files": "**",
+      "cacheControl": "max-age=0,no-cache,no-store,must-revalidate"
+     },
+     {
+      "files": [
+       "**/*.js",
+       "**/*.css"
+      ],
+      "cacheControl": "max-age=31536000,public,immutable"
+     }
+    ],
+    "replaceValues": [
+     {
+      "files": "**/*.html",
+      "search": "{{ REACT_APP_API_URL }}",
+      "replace": {
+       "Fn::GetAtt": [
+        "ApiCD79AAA0",
+        "ApiEndpoint"
+       ]
+      }
+     },
+     {
+      "files": "**/*.js",
+      "search": "{{ REACT_APP_API_URL }}",
+      "replace": {
+       "Fn::GetAtt": [
+        "ApiCD79AAA0",
+        "ApiEndpoint"
+       ]
+      }
+     }
+    ]
+   },
+   "DependsOn": [
+    "ReactSiteS3UploaderPolicy1878ED27"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "ReactSiteCloudFrontInvalidatorPolicy9A2C567A": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "cloudfront:GetInvalidation",
+        "cloudfront:CreateInvalidation"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":cloudfront::110880666244:distribution/",
+          {
+           "Ref": "ReactSiteDistributionFFB1766B"
+          }
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ReactSiteCloudFrontInvalidatorPolicy9A2C567A",
+    "Roles": [
+     {
+      "Ref": "CustomResourceHandlerServiceRole41AEC181"
+     }
+    ]
+   }
+  },
+  "ReactSiteCloudFrontInvalidatorBA77902C": {
+   "Type": "Custom::CloudFrontInvalidator",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomResourceHandlerE8FB56BA",
+      "Arn"
+     ]
+    },
+    "version": "d288f4a783f3ab3b6303214c5b5bfbc9",
+    "distributionId": {
+     "Ref": "ReactSiteDistributionFFB1766B"
+    },
+    "paths": [
+     "/*"
+    ],
+    "wait": false
+   },
+   "DependsOn": [
+    "ReactSiteCloudFrontInvalidatorPolicy9A2C567A",
+    "ReactSiteS3UploaderC091D9A3"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "ReactSiteParameterurl8CDE53DD": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/sst/my-sst-app/raj/StaticSite/ReactSite/url",
+    "Tags": {
+     "sst:app": "my-sst-app",
+     "sst:stage": "raj"
+    },
+    "Type": "String",
+    "Value": {
+     "Fn::Join": [
+      "",
+      [
+       "https://",
+       {
+        "Fn::GetAtt": [
+         "ReactSiteDistributionFFB1766B",
+         "DomainName"
+        ]
+       }
+      ]
+     ]
+    }
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ]
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-110880666244-us-east-1",
+     "S3Key": "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Lambda function for auto-deleting objects in ",
+       {
+        "Ref": "ReactSiteS3BucketB9BB7C04"
+       },
+       " S3 bucket."
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+   ]
+  }
+ },
+ "Outputs": {
+  "ApiEndpoint": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ApiCD79AAA0",
+     "ApiEndpoint"
+    ]
+   }
+  },
+  "SiteUrl": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Fn::GetAtt": [
+        "ReactSiteDistributionFFB1766B",
+        "DomainName"
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "SSTMetadata": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "{\"app\":\"my-sst-app\",\"stage\":\"raj\",\"version\":\"2.49.4\",\"metadata\":[{\"id\":\"Api\",\"addr\":\"c8e164fdd573f88bf9a803cccd684a25397ecfa1d5\",\"stack\":\"raj-my-sst-app-API\",\"type\":\"Api\",\"data\":{\"graphql\":false,\"url\":\"https://",
+      {
+       "Ref": "ApiCD79AAA0"
+      },
+      ".execute-api.us-east-1.",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/\",\"httpApiId\":\"",
+      {
+       "Ref": "ApiCD79AAA0"
+      },
+      "\",\"routes\":[{\"type\":\"function\",\"route\":\"GET /hello\",\"fn\":{\"node\":\"c8633d8d1a548c599c4e8ca692e7990fd25d59299b\",\"stack\":\"raj-my-sst-app-API\"}}]}},{\"id\":\"Lambda_GET_--hello\",\"addr\":\"c8633d8d1a548c599c4e8ca692e7990fd25d59299b\",\"stack\":\"raj-my-sst-app-API\",\"type\":\"Function\",\"data\":{\"arn\":\"",
+      {
+       "Fn::GetAtt": [
+        "ApiLambdaGEThello5A9ACCC3",
+        "Arn"
+       ]
+      },
+      "\",\"runtime\":\"nodejs22.x\",\"handler\":\"packages/functions/src/lambda.handler\",\"localId\":\"c8633d8d1a548c599c4e8ca692e7990fd25d59299b\",\"secrets\":[]}},{\"id\":\"ReactSite\",\"addr\":\"c891f5a27240427677769c92bb44acdba0c9e93cb8\",\"stack\":\"raj-my-sst-app-API\",\"type\":\"StaticSite\",\"data\":{\"path\":\"packages/frontend\",\"environment\":{\"REACT_APP_API_URL\":\"",
+      {
+       "Fn::GetAtt": [
+        "ApiCD79AAA0",
+        "ApiEndpoint"
+       ]
+      },
+      "\",\"REACT_APP_STAGE\":\"raj\"},\"url\":\"https://",
+      {
+       "Fn::GetAtt": [
+        "ReactSiteDistributionFFB1766B",
+        "DomainName"
+       ]
+      },
+      "\"}}]}"
+     ]
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}
