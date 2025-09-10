@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d730cd8c-a3ca-4d9e-b3d7-a94c2948509e" name="Changes" comment="commited all init changes">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.sst/artifacts/StaticSite-ReactSite-c891f5a27240427677769c92bb44acdba0c9e93cb8/filenames" beforeDir="false" afterPath="$PROJECT_DIR$/.sst/artifacts/StaticSite-ReactSite-c891f5a27240427677769c92bb44acdba0c9e93cb8/filenames" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.sst/artifacts/StaticSite-ReactSite-c891f5a27240427677769c92bb44acdba0c9e93cb8/part0.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.sst/artifacts/StaticSite-ReactSite-c891f5a27240427677769c92bb44acdba0c9e93cb8/part0.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.sst/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/.sst/debug.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.sst/dist/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/.sst/dist/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.sst/dist/raj-my-sst-app-API.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/.sst/dist/raj-my-sst-app-API.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.sst/dist/raj-my-sst-app-API.template.json" beforeDir="false" afterPath="$PROJECT_DIR$/.sst/dist/raj-my-sst-app-API.template.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +102,7 @@
       <option name="presentableId" value="Default" />
       <updated>1757449196411</updated>
       <workItem from="1757449197876" duration="14849000" />
-      <workItem from="1757541432075" duration="1239000" />
+      <workItem from="1757541432075" duration="1559000" />
     </task>
     <task id="LOCAL-00001" summary="commited all init changes">
       <option name="closed" value="true" />

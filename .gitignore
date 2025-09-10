@@ -22,12 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-.idea
-
-.sst
-
-
-/.sst/*
 /packages/frontend/build
 
 /packages/frontend/node_modules
+/.sst/
+/.idea/
