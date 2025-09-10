@@ -29,3 +29,4 @@ yarn-error.log*
 packages/frontend/build
 packages/frontend/node_modules
 
+/.sst/*

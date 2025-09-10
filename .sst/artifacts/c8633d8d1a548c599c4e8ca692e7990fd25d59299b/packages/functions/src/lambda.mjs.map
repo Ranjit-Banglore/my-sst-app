@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../../../../packages/functions/src/lambda.ts"],
-  "sourcesContent": ["import {APIGatewayProxyHandlerV2} from \"aws-lambda\"\n\nexport const handler: APIGatewayProxyHandlerV2 = async (event) => {\n\n    return {\n        statusCode: 200,\n        headers: {\n            \"Content-Type\": \"application/json\",\n        },\n        body: JSON.stringify({\n            message: \"Hello from SST!\",\n            path: event.rawPath,\n        })\n    }\n\n}"],
-  "mappings": ";;;;;;;;;AAEO,IAAM,UAAoC,8BAAO,UAAU;AAE9D,SAAO;AAAA,IACH,YAAY;AAAA,IACZ,SAAS;AAAA,MACL,gBAAgB;AAAA,IACpB;AAAA,IACA,MAAM,KAAK,UAAU;AAAA,MACjB,SAAS;AAAA,MACT,MAAM,MAAM;AAAA,IAChB,CAAC;AAAA,EACL;AAEJ,GAbiD;",
-  "names": []
-}
