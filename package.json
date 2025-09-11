@@ -8,7 +8,11 @@
     "remove": "sst remove"
   },
   "dependencies": {
+    "@aws-cdk/aws-ec2": "^1.204.0",
+    "@aws-cdk/aws-rds": "^1.204.0",
+    "aws-cdk-lib": "^2.214.0",
     "axios": "^1.11.0",
+    "serverless-stack": "^0.1.0",
     "sst": "^2.25.0"
   },
   "devDependencies": {
