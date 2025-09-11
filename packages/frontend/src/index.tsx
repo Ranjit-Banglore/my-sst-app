@@ -7,6 +7,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        <Hello></Hello>
+        <Hello message="Hello" name="Ranjit" isActive={true}></Hello>
+        <Hello message="Guten Tag!" name="Stephan" isActive={false}></Hello>
+
     </React.StrictMode>
 );
